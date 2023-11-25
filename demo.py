@@ -169,7 +169,12 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 	
 	# load model
-	model = models.DeepNetwork(state_dict=torch.load(args.checkpoint)["model"]).to(args.device).eval()
+	# model = models.DeepNetwork(state_dict=torch.load(args.checkpoint)["model"]).to(args.device).eval()
+
+	import torch, models
+
+	checkpoint = torch.load("/home/cvlab/Juni/p23/UnderPressure/pretrained.tar")
+	model = models.DeepNetwork(state_dict=checkpoint["model"]).to(args.device).eval()
 
 	if sys.argv[1] == "vGRFs":
 		vGRFs_estimation(model, args.device, args.subj, args.seq)
